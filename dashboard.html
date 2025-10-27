@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistem Manajemen Berkas Keluarga</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="FamilyDocs">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-folder-open"></i>
+                    <h2>Berkas Keluarga</h2>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="#dashboard" class="nav-link" data-section="dashboard">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#family" class="nav-link" data-section="family">
+                            <i class="fas fa-users"></i>
+                            <span>Anggota Keluarga</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#documents" class="nav-link" data-section="documents">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Kelola Berkas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#categories" class="nav-link" data-section="categories">
+                            <i class="fas fa-tags"></i>
+                            <span>Kategori</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#search" class="nav-link" data-section="search">
+                            <i class="fas fa-search"></i>
+                            <span>Pencarian</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="sidebarUserName">Admin</span>
+                        <span class="user-role">Kepala Keluarga</span>
+                    </div>
+                </div>
+                <button class="btn-logout" id="sidebarLogout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="pageTitle">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span id="totalMembers">0</span>
+                            <small>Anggota</small>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-file"></i>
+                            <span id="totalFiles">0</span>
+                            <small>Berkas</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="dashboard-grid">
+                    <!-- Quick Stats -->
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashTotalMembers">0</h3>
+                                <p>Anggota Keluarga</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashTotalFiles">0</h3>
+                                <p>Total Berkas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashTotalCategories">10</h3>
+                                <p>Kategori</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dashRecentFiles">0</h3>
+                                <p>Berkas Terbaru</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h3>Aktivitas Terbaru</h3>
+                        <div id="recentActivity" class="activity-list">
+                            <!-- Recent activities will be displayed here -->
+                        </div>
+                    </div>
+
+                    <!-- Family Overview -->
+                    <div class="family-overview">
+                        <h3>Anggota Keluarga</h3>
+                        <div id="familyOverview" class="family-grid">
+                            <!-- Family members will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Family Section -->
+            <section id="family-section" class="content-section">
+                <div class="section-header">
+                    <h2>Kelola Anggota Keluarga</h2>
+                    <button class="btn-primary" id="addFamilyBtn">
+                        <i class="fas fa-plus"></i>
+                        Tambah Anggota
+                    </button>
+                </div>
+                
+                <div class="family-list" id="familyList">
+                    <!-- Family members will be displayed here -->
+                </div>
+            </section>
+
+            <!-- Documents Section -->
+            <section id="documents-section" class="content-section">
+                <div class="section-header">
+                    <h2>Kelola Berkas</h2>
+                    <button class="btn-primary" id="addDocumentBtn">
+                        <i class="fas fa-plus"></i>
+                        Upload Berkas
+                    </button>
+                </div>
+                
+                <div class="documents-filter">
+                    <select id="memberFilter">
+                        <option value="">Semua Anggota</option>
+                    </select>
+                    <select id="categoryFilter">
+                        <option value="">Semua Kategori</option>
+                        <option value="ktp">KTP & Identitas</option>
+                        <option value="kk">Kartu Keluarga</option>
+                        <option value="akta">Akta Kelahiran</option>
+                        <option value="ijazah">Ijazah & Sertifikat</option>
+                        <option value="surat-kerja">Surat Kerja</option>
+                        <option value="pajak">Dokumen Pajak</option>
+                        <option value="asuransi">Asuransi</option>
+                        <option value="properti">Dokumen Properti</option>
+                        <option value="keuangan">Dokumen Keuangan</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                </div>
+                
+                <div class="documents-grid" id="documentsGrid">
+                    <!-- Documents will be displayed here -->
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories-section" class="content-section">
+                <div class="section-header">
+                    <h2>Kategori Berkas</h2>
+                </div>
+                
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <i class="fas fa-id-card"></i>
+                        <h4>KTP & Identitas</h4>
+                        <span class="category-count" data-category="ktp">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Kartu Keluarga</h4>
+                        <span class="category-count" data-category="kk">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-baby"></i>
+                        <h4>Akta Kelahiran</h4>
+                        <span class="category-count" data-category="akta">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>Ijazah & Sertifikat</h4>
+                        <span class="category-count" data-category="ijazah">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-briefcase"></i>
+                        <h4>Surat Kerja</h4>
+                        <span class="category-count" data-category="surat-kerja">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-calculator"></i>
+                        <h4>Dokumen Pajak</h4>
+                        <span class="category-count" data-category="pajak">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Asuransi</h4>
+                        <span class="category-count" data-category="asuransi">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-home"></i>
+                        <h4>Dokumen Properti</h4>
+                        <span class="category-count" data-category="properti">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-coins"></i>
+                        <h4>Dokumen Keuangan</h4>
+                        <span class="category-count" data-category="keuangan">0 berkas</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-folder"></i>
+                        <h4>Lainnya</h4>
+                        <span class="category-count" data-category="lainnya">0 berkas</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search Section -->
+            <section id="search-section" class="content-section">
+                <div class="section-header">
+                    <h2>Pencarian Berkas</h2>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="globalSearch" placeholder="Cari berkas, anggota keluarga, atau kategori...">
+                    </div>
+                    
+                    <div class="search-filters">
+                        <select id="searchMemberFilter">
+                            <option value="">Semua Anggota</option>
+                        </select>
+                        <select id="searchCategoryFilter">
+                            <option value="">Semua Kategori</option>
+                            <option value="ktp">KTP & Identitas</option>
+                            <option value="kk">Kartu Keluarga</option>
+                            <option value="akta">Akta Kelahiran</option>
+                            <option value="ijazah">Ijazah & Sertifikat</option>
+                            <option value="surat-kerja">Surat Kerja</option>
+                            <option value="pajak">Dokumen Pajak</option>
+                            <option value="asuransi">Asuransi</option>
+                            <option value="properti">Dokumen Properti</option>
+                            <option value="keuangan">Dokumen Keuangan</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="search-results" id="searchResults">
+                    <!-- Search results will be displayed here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="familyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="familyModalTitle">Tambah Anggota Keluarga</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="familyForm">
+                <div class="form-group">
+                    <label for="memberName">Nama Lengkap:</label>
+                    <input type="text" id="memberName" required>
+                </div>
+                <div class="form-group">
+                    <label for="memberRelation">Hubungan Keluarga:</label>
+                    <select id="memberRelation" required>
+                        <option value="">Pilih Hubungan</option>
+                        <option value="suami">Suami</option>
+                        <option value="istri">Istri</option>
+                        <option value="ayah">Ayah</option>
+                        <option value="ibu">Ibu</option>
+                        <option value="anak">Anak</option>
+                        <option value="kakek">Kakek</option>
+                        <option value="nenek">Nenek</option>
+                        <option value="saudara">Saudara</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="memberBirthDate">Tanggal Lahir:</label>
+                    <input type="date" id="memberBirthDate">
+                </div>
+                <div class="form-group">
+                    <label for="memberNotes">Catatan (Opsional):</label>
+                    <textarea id="memberNotes" placeholder="Tambahkan catatan..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-cancel">Batal</button>
+                    <button type="submit" class="btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="documentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="documentModalTitle">Upload Berkas</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="documentForm">
+                <div class="form-group">
+                    <label for="docFile">Pilih Berkas:</label>
+                    <input type="file" id="docFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" required>
+                </div>
+                <div class="form-group">
+                    <label for="docName">Nama Berkas:</label>
+                    <input type="text" id="docName" required>
+                </div>
+                <div class="form-group">
+                    <label for="docMember">Anggota Keluarga:</label>
+                    <select id="docMember" required>
+                        <option value="">Pilih Anggota</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="docCategory">Kategori:</label>
+                    <select id="docCategory" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="ktp">KTP & Identitas</option>
+                        <option value="kk">Kartu Keluarga</option>
+                        <option value="akta">Akta Kelahiran</option>
+                        <option value="ijazah">Ijazah & Sertifikat</option>
+                        <option value="surat-kerja">Surat Kerja</option>
+                        <option value="pajak">Dokumen Pajak</option>
+                        <option value="asuransi">Asuransi</option>
+                        <option value="properti">Dokumen Properti</option>
+                        <option value="keuangan">Dokumen Keuangan</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="docDescription">Deskripsi (Opsional):</label>
+                    <textarea id="docDescription" placeholder="Tambahkan deskripsi..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-cancel">Batal</button>
+                    <button type="submit" class="btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Local Version Scripts -->
+    <script src="auth.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

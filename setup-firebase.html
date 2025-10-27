@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Setup - Family Document Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .step {
+            background: #f8fafc;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .step h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 10px 10px 0;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #5a67d8;
+        }
+        
+        .btn-success {
+            background: #48bb78;
+        }
+        
+        .btn-success:hover {
+            background: #38a169;
+        }
+        
+        .config-form {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .alert-info {
+            background: #bee3f8;
+            color: #2a4365;
+            border: 1px solid #90cdf4;
+        }
+        
+        .alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Firebase Setup untuk Family Document Manager</h1>
+        
+        <div class="alert alert-info">
+            <strong>Info:</strong> Setup ini akan membantu Anda mengkonfigurasi Firebase untuk sync cloud dan akses multi-device.
+        </div>
+        
+        <div class="step">
+            <h3>Step 1: Buat Firebase Project</h3>
+            <p>1. Klik tombol di bawah untuk membuka Firebase Console</p>
+            <p>2. Klik "Create a project" atau "Add project"</p>
+            <p>3. Nama project: <strong>family-document-manager</strong></p>
+            <p>4. Aktifkan Google Analytics (opsional)</p>
+            <a href="https://console.firebase.google.com/" target="_blank" class="btn">Buka Firebase Console</a>
+        </div>
+        
+        <div class="step">
+            <h3>Step 2: Setup Authentication</h3>
+            <p>1. Di Firebase Console, pilih "Authentication"</p>
+            <p>2. Klik "Get started"</p>
+            <p>3. Pilih tab "Sign-in method"</p>
+            <p>4. Aktifkan "Email/Password"</p>
+        </div>
+        
+        <div class="step">
+            <h3>Step 3: Setup Firestore Database</h3>
+            <p>1. Pilih "Firestore Database"</p>
+            <p>2. Klik "Create database"</p>
+            <p>3. Pilih "Start in test mode"</p>
+            <p>4. Pilih lokasi server (Asia-Southeast1 untuk Indonesia)</p>
+        </div>
+        
+        <div class="step">
+            <h3>Step 4: Setup Storage</h3>
+            <p>1. Pilih "Storage"</p>
+            <p>2. Klik "Get started"</p>
+            <p>3. Pilih "Start in test mode"</p>
+        </div>
+        
+        <div class="step">
+            <h3>Step 5: Get Firebase Config</h3>
+            <p>1. Pilih "Project settings" (ikon gear)</p>
+            <p>2. Scroll ke bawah, klik "Add app" → Web (ikon &lt;/&gt;)</p>
+            <p>3. Masukkan nama app: <strong>Family Document Manager</strong></p>
+            <p>4. Copy konfigurasi Firebase dan paste di form di bawah:</p>
+        </div>
+        
+        <div class="config-form">
+            <h3>🔧 Firebase Configuration</h3>
+            <p>Paste konfigurasi Firebase Anda di sini:</p>
+            
+            <div class="form-group">
+                <label for="apiKey">API Key:</label>
+                <input type="text" id="apiKey" placeholder="AIzaSy...">
+            </div>
+            
+            <div class="form-group">
+                <label for="authDomain">Auth Domain:</label>
+                <input type="text" id="authDomain" placeholder="your-project.firebaseapp.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="projectId">Project ID:</label>
+                <input type="text" id="projectId" placeholder="your-project-id">
+            </div>
+            
+            <div class="form-group">
+                <label for="storageBucket">Storage Bucket:</label>
+                <input type="text" id="storageBucket" placeholder="your-project.appspot.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="messagingSenderId">Messaging Sender ID:</label>
+                <input type="text" id="messagingSenderId" placeholder="123456789">
+            </div>
+            
+            <div class="form-group">
+                <label for="appId">App ID:</label>
+                <input type="text" id="appId" placeholder="1:123456789:web:abcdef123456">
+            </div>
+            
+            <button onclick="generateConfig()" class="btn btn-success">Generate Config File</button>
+            <button onclick="testConnection()" class="btn">Test Connection</button>
+        </div>
+        
+        <div id="generatedConfig" style="display: none;">
+            <h3>✅ Generated Configuration</h3>
+            <p>Copy kode di bawah dan ganti isi file <strong>firebase-config.js</strong>:</p>
+            <div class="code-block" id="configCode"></div>
+            <button onclick="downloadConfig()" class="btn btn-success">Download firebase-config.js</button>
+            <button onclick="openApp()" class="btn">Buka Aplikasi</button>
+        </div>
+        
+        <div class="step">
+            <h3>Step 6: Security Rules (Opsional)</h3>
+            <p>Untuk keamanan tambahan, update Firestore Rules:</p>
+            <div class="code-block">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /familyMembers/{memberId} {
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+    match /documents/{documentId} {
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+  }
+}
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function generateConfig() {
+            const apiKey = document.getElementById('apiKey').value;
+            const authDomain = document.getElementById('authDomain').value;
+            const projectId = document.getElementById('projectId').value;
+            const storageBucket = document.getElementById('storageBucket').value;
+            const messagingSenderId = document.getElementById('messagingSenderId').value;
+            const appId = document.getElementById('appId').value;
+            
+            if (!apiKey || !authDomain || !projectId || !storageBucket || !messagingSenderId || !appId) {
+                alert('Harap isi semua field!');
+                return;
+            }
+            
+            const configCode = `// Firebase Configuration
+// Import Firebase SDK
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+const firebaseConfig = {
+    apiKey: "${apiKey}",
+    authDomain: "${authDomain}",
+    projectId: "${projectId}",
+    storageBucket: "${storageBucket}",
+    messagingSenderId: "${messagingSenderId}",
+    appId: "${appId}"
+};
+
+// Initialize Firebase
+let app, auth, db, storage;
+
+try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
+    console.log('✅ Firebase initialized successfully');
+} catch (error) {
+    console.error('❌ Firebase initialization error:', error);
+    alert('Firebase setup error. Please check your configuration.');
+}
+
+export { auth, db, storage };
+export default app;`;
+            
+            document.getElementById('configCode').textContent = configCode;
+            document.getElementById('generatedConfig').style.display = 'block';
+            
+            // Store config for download
+            window.generatedConfigCode = configCode;
+        }
+        
+        function downloadConfig() {
+            if (!window.generatedConfigCode) {
+                alert('Generate config terlebih dahulu!');
+                return;
+            }
+            
+            const blob = new Blob([window.generatedConfigCode], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'firebase-config.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('File firebase-config.js berhasil didownload! Ganti file yang lama dengan yang baru.');
+        }
+        
+        function testConnection() {
+            alert('Fitur test connection akan tersedia setelah config di-generate dan file diupdate.');
+        }
+        
+        function openApp() {
+            window.open('login.html', '_blank');
+        }
+    </script>
+</body>
+</html>

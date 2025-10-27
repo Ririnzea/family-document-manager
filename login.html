@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistem Manajemen Berkas</title>
+    <link rel="stylesheet" href="login.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="FamilyDocs">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>🔐 Login</h1>
+                <p>Sistem Manajemen Berkas Administrasi</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" placeholder="Masukkan username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Masuk</button>
+            </form>
+
+            <div class="auth-switch">
+                <p>Belum punya akun? <a href="#" id="showRegister">Daftar di sini</a></p>
+            </div>
+
+            <!-- Register Form (Hidden by default) -->
+            <form id="registerForm" class="auth-form hidden">
+                <div class="form-group">
+                    <label for="regUsername">Username:</label>
+                    <input type="text" id="regUsername" placeholder="Pilih username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">Password:</label>
+                    <input type="password" id="regPassword" placeholder="Buat password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Konfirmasi Password:</label>
+                    <input type="password" id="confirmPassword" placeholder="Ulangi password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fullName">Nama Lengkap:</label>
+                    <input type="text" id="fullName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Daftar</button>
+            </form>
+
+            <div class="auth-switch register-switch hidden">
+                <p>Sudah punya akun? <a href="#" id="showLogin">Login di sini</a></p>
+            </div>
+
+            <!-- Error/Success Messages -->
+            <div id="message" class="message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Local Version Scripts -->
+    <script src="auth.js"></script>
+</body>
+</html>
